@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevTipping - Tip Open-Source Devs</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f0f0f0; }
+        .container { max-width: 600px; margin: auto; text-align: center; }
+        input, button { padding: 10px; margin: 5px; }
+        #status { color: green; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.7.4/dist/web3.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>DevTipping</h1>
+        <input type="text" id="githubUsername" placeholder="GitHub Username">
+        <button onclick="fetchGithubAddress()">Find Address</button><br>
+        <input type="text" id="developerAddress" placeholder="Developer ETH Address" readonly>
+        <input type="number" id="tipAmount" placeholder="Tip Amount (ETH)" step="0.01">
+        <button onclick="sendTip()">Send Tip</button>
+        <p id="status"></p>
+    </div>
+
+    <script>
+        const contractAddress = "0xE591a25D32e3e881B4adAcDdb99314cFc18"; // Paste from Remix
+        const contractABI = 0xE591a25D32e3e881B4adAcDdb99314cFc185502B; // Paste from Remix
+        let web3, contract;
+
+        window.onload = async () => {
+            if (window.ethereum) {
+                web3 = new Web3(window.ethereum);
+                await window.ethereum.enable();
+                contract = new web3.eth.Contract(contractABI, contractAddress);
+            } else {
+                alert("Please install MetaMask!");
+            }
+        };
+
+        async function fetchGithubAddress() {
+            const username = document.getElementById("githubUsername").value;
+            try {
+                const address = await contract.methods.githubToAddress(username).call();
+                document.getElementById("developerAddress").value = address === "0x0000000000000000000000000000000000000000" ? "Not registered" : address;
+            } catch (error) {
+                document.getElementById("status").innerText = "Error fetching address";
+            }
+        }
+
+        async function sendTip() {
+            const developerAddress = document.getElementById("developerAddress").value;
+            const tipAmount = document.getElementById("tipAmount").value;
+            if (!web3.utils.isAddress(developerAddress) || tipAmount <= 0) {
+                document.getElementById("status").innerText = "Invalid address or amount";
+                return;
+            }
+
+            const accounts = await web3.eth.getAccounts();
+            const weiAmount = web3.utils.toWei(tipAmount, "ether");
+
+            try {
+                await contract.methods.sendTip(developerAddress).send({
+                    from: accounts[0],
+                    value: weiAmount
+                });
+                document.getElementById("status").innerText = "Tip sent successfully!";
+            } catch (error) {
+                document.getElementById("status").innerText = "Error sending tip: " + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
