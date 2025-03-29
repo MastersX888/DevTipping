@@ -5,16 +5,33 @@
       font-family: Arial, sans-serif;
       background-color: #1a1a1a;
       color: #e0e0e0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
       padding: 20px;
-      min-height: 100vh;
+      text-align: center;
     }
     h1 {
       color: #00b894;
       font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.2em;
       margin-bottom: 20px;
+    }
+    .image-section {
+      margin: 40px 0;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
     input {
       padding: 10px;
@@ -45,14 +62,33 @@
   </style>
 </head>
 <body>
-  <h1>DevTipping</h1>
-  <input id="githubUsername" placeholder="GitHub Username">
-  <button onclick="findAddress()">Find Address</button>
-  <input id="tipAmount" placeholder="ETH Amount">
-  <button onclick="sendTip()">Send Tip</button>
+  <div class="container">
+    <h1>DevTipping</h1>
+    <p>Empower open-source coders to live well—pay it forward with ETH tips!</p>
+
+    <div class="image-section">
+      <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Smiling coders at computers">
+      <p>Support the talent behind your favorite projects.</p>
+    </div>
+
+    <div class="image-section">
+      <img src="https://images.unsplash.com/photo-1547394765-185e1e68f0d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="City skyline">
+      <p>Build a thriving community, one tip at a time.</p>
+    </div>
+
+    <div class="image-section">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Beach">
+      <p>Help coders enjoy the rewards of their work.</p>
+    </div>
+
+    <input id="githubUsername" placeholder="GitHub Username">
+    <button onclick="findAddress()">Find Address</button>
+    <input id="tipAmount" placeholder="ETH Amount">
+    <button onclick="sendTip()">Send Tip</button>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
   <script>
-    // Replace with your actual Web3.js code
+    // Your Web3.js code here
     async function findAddress() { /* Your logic */ }
     async function sendTip() { /* Your logic */ }
   </script>
