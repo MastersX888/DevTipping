@@ -1,105 +1,138 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>DevTipping - Support Open-Source Coders with ETH</title>
-  <meta name="description" content="Empower open-source developers with Ethereum tips on Sepolia. Pay it forward to the coding community!">
-  <meta name="keywords" content="open source tipping, support developers, Ethereum donations, pay it forward, Sepolia testnet">
+  <title>DevTipping - Instant Crypto Tips for Coders</title>
+  <meta name="description" content="Send instant ETH tips to open-source coders with DevTipping. No logins, just MetaMask and GitHub—pay it forward!">
+  <meta name="keywords" content="open source tipping, crypto tips for coders, Ethereum donations, pay it forward, Sepolia testnet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #1a1a1a;
-      color: #e0e0e0;
+      background-color: #24292e;
+      color: #d1d5da;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       margin: 0;
       padding: 0;
-      line-height: 1.6;
     }
     .container {
-      max-width: 800px;
-      margin: 0 auto;
+      max-width: 900px;
       padding: 20px;
+    }
+    header {
       text-align: center;
+      padding: 40px 0;
+      background: linear-gradient(135deg, #0366d6, #24292e);
+      color: #fff;
     }
     h1 {
-      color: #00b894;
-      font-size: 2em;
-      margin: 10px 0;
+      font-size: 2.5rem;
+      margin: 0;
     }
-    p {
-      font-size: 1em;
-      margin: 10px 0;
+    .lead {
+      font-size: 1.25rem;
+      margin-top: 10px;
     }
     .tipping-form {
+      background: #2f363d;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       margin: 20px 0;
     }
     input {
-      padding: 8px;
-      margin: 5px 0;
-      width: 180px;
-      background-color: #2d2d2d;
-      color: #e0e0e0;
-      border: 1px solid #444;
+      background: #1b1f23;
+      color: #d1d5da;
+      border: 1px solid #444c56;
       border-radius: 5px;
-      font-size: 0.9em;
+      padding: 10px;
+      width: 100%;
+      max-width: 300px;
+      margin: 10px 0;
     }
     input::placeholder {
-      color: #888;
+      color: #6a737d;
     }
-    button {
-      padding: 8px 16px;
-      margin: 5px 0;
-      background-color: #00b894;
-      color: #fff;
+    .btn-primary {
+      background-color: #0366d6;
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 0.9em;
+      padding: 10px 20px;
     }
-    button:hover {
-      background-color: #009b77;
+    .btn-primary:hover {
+      background-color: #0051a8;
     }
-    .image-section {
-      margin: 30px 0;
+    .section {
+      margin: 40px 0;
     }
-    img {
-      width: 300px;
-      height: auto;
+    .section img {
+      width: 100%;
+      max-width: 300px;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      margin: 20px auto;
+      display: block;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #6a737d;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
+  <header>
+    <div class="container">
+      <h1>DevTipping</h1>
+      <p class="lead">Instant ETH tips for open-source coders—no logins, just code & community.</p>
+    </div>
+  </header>
+
   <div class="container">
-    <h1>DevTipping</h1>
-    <p>Support open-source coders with ETH—pay it forward!</p>
-
     <div class="tipping-form">
-      <input id="githubUsername" placeholder="GitHub Username">
-      <button onclick="findAddress()">Find Address</button>
-      <input id="tipAmount" placeholder="ETH Amount">
-      <button onclick="sendTip()">Send Tip</button>
+      <h2 class="h4">Tip a Coder</h2>
+      <input id="githubUsername" placeholder="GitHub Username" class="form-control">
+      <button onclick="findAddress()" class="btn btn-primary">Find Address</button>
+      <input id="tipAmount" placeholder="ETH Amount" class="form-control">
+      <button onclick="sendTip()" class="btn btn-primary">Send Tip</button>
+      <p id="status" class="mt-2"></p>
     </div>
 
-    <div class="image-section">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Coder at computer">
-      <p>Empower developers to thrive through collaboration.</p>
+    <div class="section">
+      <h2 class="h3">Why DevTipping?</h2>
+      <p>Support the open-source community with quick, hassle-free tips. Pay it forward for a favor or just to say thanks—straight from your MetaMask wallet.</p>
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Coder at work">
     </div>
 
-    <div class="image-section">
-      <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Smiling coder">
-      <p>Join a community that values open-source talent.</p>
-    </div>
-
-    <div class="image-section">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Beach">
-      <p>Help coders live well with your tips.</p>
+    <div class="section">
+      <h2 class="h3">Built for Coders</h2>
+      <p>No accounts, no fuss—just connect, tip, and go. Powered by Ethereum on Sepolia, trusted by the community.</p>
+      <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Happy coders">
     </div>
   </div>
+
+  <footer>
+    <p>Built by <a href="https://github.com/mastersx888">mastersx888</a> | <a href="https://github.com/mastersx888/DevTipping">Join the Project</a></p>
+  </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
   <script>
-    // Your Web3.js code here
-    async function findAddress() { /* Your logic */ }
-    async function sendTip() { /* Your logic */ }
+    // Placeholder Web3.js logic - replace with your actual code
+    async function findAddress() {
+      const username = document.getElementById("githubUsername").value;
+      document.getElementById("status").innerText = `Looking up ${username}...`;
+      // Your address lookup logic here
+    }
+    async function sendTip() {
+      const amount = document.getElementById("tipAmount").value;
+      document.getElementById("status").innerText = `Sending ${amount} ETH...`;
+      // Your tipping logic here
+    }
   </script>
 </body>
 </html>
