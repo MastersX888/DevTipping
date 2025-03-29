@@ -1,74 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevTipping - Tip Open-Source Devs</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f0f0f0; }
-        .container { max-width: 600px; margin: auto; text-align: center; }
-        input, button { padding: 10px; margin: 5px; }
-        #status { color: green; }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.7.4/dist/web3.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    h1 {
+      color: #00b894;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 10px;
+      margin: 10px 0;
+      width: 200px;
+      background-color: #2d2d2d;
+      color: #e0e0e0;
+      border: 1px solid #444;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    input::placeholder {
+      color: #888;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px 0;
+      background-color: #00b894;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    button:hover {
+      background-color: #009b77;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>DevTipping</h1>
-        <input type="text" id="githubUsername" placeholder="GitHub Username">
-        <button onclick="fetchGithubAddress()">Find Address</button><br>
-        <input type="text" id="developerAddress" placeholder="Developer ETH Address" readonly>
-        <input type="number" id="tipAmount" placeholder="Tip Amount (ETH)" step="0.01">
-        <button onclick="sendTip()">Send Tip</button>
-        <p id="status"></p>
-    </div>
-
-    <script>
-        const contractAddress = "0xE591a25D32e3e881B4adAcDdb99314cFc18"; // Paste from Remix
-        const contractABI = 0xE591a25D32e3e881B4adAcDdb99314cFc185502B; // Paste from Remix
-        let web3, contract;
-
-        window.onload = async () => {
-            if (window.ethereum) {
-                web3 = new Web3(window.ethereum);
-                await window.ethereum.enable();
-                contract = new web3.eth.Contract(contractABI, contractAddress);
-            } else {
-                alert("Please install MetaMask!");
-            }
-        };
-
-        async function fetchGithubAddress() {
-            const username = document.getElementById("githubUsername").value;
-            try {
-                const address = await contract.methods.githubToAddress(username).call();
-                document.getElementById("developerAddress").value = address === "0x0000000000000000000000000000000000000000" ? "Not registered" : address;
-            } catch (error) {
-                document.getElementById("status").innerText = "Error fetching address";
-            }
-        }
-
-        async function sendTip() {
-            const developerAddress = document.getElementById("developerAddress").value;
-            const tipAmount = document.getElementById("tipAmount").value;
-            if (!web3.utils.isAddress(developerAddress) || tipAmount <= 0) {
-                document.getElementById("status").innerText = "Invalid address or amount";
-                return;
-            }
-
-            const accounts = await web3.eth.getAccounts();
-            const weiAmount = web3.utils.toWei(tipAmount, "ether");
-
-            try {
-                await contract.methods.sendTip(developerAddress).send({
-                    from: accounts[0],
-                    value: weiAmount
-                });
-                document.getElementById("status").innerText = "Tip sent successfully!";
-            } catch (error) {
-                document.getElementById("status").innerText = "Error sending tip: " + error.message;
-            }
-        }
-    </script>
+  <h1>DevTipping</h1>
+  <input id="githubUsername" placeholder="GitHub Username">
+  <button onclick="findAddress()">Find Address</button>
+  <input id="tipAmount" placeholder="ETH Amount">
+  <button onclick="sendTip()">Send Tip</button>
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <script>
+    // Replace with your actual Web3.js code
+    async function findAddress() { /* Your logic */ }
+    async function sendTip() { /* Your logic */ }
+  </script>
 </body>
 </html>
